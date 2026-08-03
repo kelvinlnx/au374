@@ -116,7 +116,7 @@ CMD Syntax:
   ansible-navigator run [--hp]
   ansible-navigator doc [-t <PLUGIN>] -l
   ansible-navigator doc <MODULE> -m stdout
-  ansible-navigator run [--ee True|false] [--eei <IMAGE>] [--eev <LOCAL_PATH>:<CONT_PATH>] [-i <INVENTORY>] [--pp <PULL_POLICY>] <PLAYBOOK>
+  ansible-navigator run [--ee True|false] [--eei <IMAGE>] [--eev <LOCAL_PATH>:<CONT_PATH>] [-i <INVENTORY>] [--pp <PULL_POLICY>] [-m stdout|interactive] <PLAYBOOK>
   ansible-navigator inventory -i <INVENTORY> [--list|--graph]
   
   HELP:
