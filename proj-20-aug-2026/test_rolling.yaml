@@ -1,0 +1,19 @@
+- name: testing rolling update
+  hosts: all
+  order: sorted
+  gather_facts: false
+  serial: 3
+  max_fail_percentage: 50%
+  tasks:
+    - name: T1
+      debug:
+        msg: Task 1
+      failed_when: inventory_hostname == 'monkey'
+
+    - name: T2
+      debug:
+        msg: Task 2
+
+    - name: T3
+      debug:
+        msg: Task 3

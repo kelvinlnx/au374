@@ -1,0 +1,44 @@
+---
+- name: Testing handlers
+  hosts: webservers
+  force_handlers: true
+  tasks:
+    - name: T1
+      debug:
+        msg: Task 1
+      changed_when: true
+      notify:
+        - H3
+        - H2
+
+    - name: T2
+      debug:
+        msg: Task 2
+      changed_when: true
+      failed_when: inventory_hostname == 'serverb.lab.example.com'
+      notify:
+        - H1
+        - H3
+
+    - meta: flush_handlers
+
+    - name: T3
+      debug:
+        msg: Task 3
+      changed_when: true
+      notify:
+        - H2
+
+  handlers:
+    - name: H1
+      debug:
+        msg: Handler 1
+        
+    - name: H2
+      debug:
+        msg: Handler 2
+        
+    - name: H3
+      debug:
+        msg: Handler 3
+...

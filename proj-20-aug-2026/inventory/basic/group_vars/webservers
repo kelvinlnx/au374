@@ -1,0 +1,11 @@
+pkg_list:
+  - httpd
+  - firewalld
+
+svc_names:
+  - httpd
+  - firewalld
+
+fw_svc_names:
+  - http
+  - https

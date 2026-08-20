@@ -1,0 +1,11 @@
+pkg_list:
+  - mariadb-server
+  - firewalld
+
+svc_names:
+  - mariadb
+  - firewalld
+
+fw_svc_names:
+  - mysql
+

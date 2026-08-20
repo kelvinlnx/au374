@@ -1,0 +1,39 @@
+---
+- name: Setting up servers
+  hosts:
+    - webservers
+    - dbservers
+  vars:
+    config_fw: true
+  gather_facts: false
+  become: true
+  tasks:
+    - name: Install packages
+      dnf:
+        name: "{{ pkg_list }}"
+        state: latest
+          
+    - name: Configure service
+      service:
+        name: "{{ item }}"
+        state: started
+        enabled: true
+      loop: "{{ svc_names }}"
+
+    - name: Enable service on firewall
+      firewalld:
+        service: "{{ item }}"
+        permanent: true
+        state: enabled
+      loop: "{{ fw_svc_names }}"
+      when:
+        - config_fw
+        - fw_svc_names is defined
+
+    - name: initialize default website
+      copy:
+        content: Hello World
+        dest: /var/www/html/index.html
+      when: inventory_hostname in groups['webservers']
+
+

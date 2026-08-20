@@ -1,0 +1,35 @@
+---
+version: 3
+images:
+  base_image:
+    name: registry.access.redhat.com/ubi9/ubi:latest
+dependencies:
+  ansible_core:
+    package_pip: ansible-core
+  ansible_runner:
+    package_pip: ansible-runner
+  galaxy: requirements.yaml
+  python:
+    - psutil
+  system: bindep.txt
+  exclude:
+    python:
+      - docker
+    system:
+      - zsh
+
+additional_build_files:
+  - src: files/ansible.cfg
+    dest: configs
+
+additional_build_steps:
+  prepend_base:
+    - RUN echo THis is a prepend base command!
+  prepend_galaxy:
+    - COPY _build/configs/ansible.cfg /etc/ansible/ansible.cfg
+  prepend_final:
+    RUN whoami
+    RUN cat /etc/os-release
+  append_final:
+    - RUN echo this is a post-install command!
+    - RUN ls -al /etc

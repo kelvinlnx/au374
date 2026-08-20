@@ -1,0 +1,16 @@
+- name: Testing setattr
+  hosts: localhost
+  vars:
+    users:
+      - name: Alice
+        role: admin
+      - name: Bob
+        role: developer
+      - name: Charlie
+        role: admin
+  
+    admin_users: "{{ users | selectattr('role', 'equalto', 'admin') | list }}"
+  tasks:
+    - name: display admin users
+      debug:
+        var: admin_users

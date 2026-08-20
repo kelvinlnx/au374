@@ -1,0 +1,9 @@
+- name: Testing Collection
+  hosts: servera.lab.example.com
+  tasks:
+    - name: Setting ip forward
+      ansible.posix.sysctl:
+        name: net.ipv4.ip_forward
+        value: '1'
+        sysctl_set: true
+

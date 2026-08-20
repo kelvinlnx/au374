@@ -1,0 +1,16 @@
+---
+ansible-navigator:
+  execution-environment:
+    container-engine: podman
+    enabled: true
+    image: aap.lab.example.com/ee-supported-rhel9:latest
+    pull:
+      policy: missing
+  logging:
+    append: false
+    file: ./logs/ansible-navigator.log
+  mode: stdout
+  playbook-artifact:
+    enable: false
+  time-zone: UTC
+

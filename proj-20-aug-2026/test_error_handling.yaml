@@ -1,0 +1,34 @@
+---
+- name: Testing block error handling
+  hosts: servera.lab.example.com
+  vars:
+    myresult: true
+    inner_result: "true"
+  tasks:
+    - name: T1
+      debug:
+        msg: Task 1
+
+    - block:
+        - name: T2a
+          debug:
+            msg: Task 2a
+          failed_when: "{{ inner_result | bool }}"
+    
+        - name: T2b
+          debug:
+            msg: Task 2b
+      rescue:
+        - name: R1
+          debug:
+            msg: Rescue 1
+      always:
+        - name: A1
+          debug:
+            msg: Always 1
+      become: "{{ myresult }}"
+
+    - name: T3
+      debug:
+        msg: Task 3
+

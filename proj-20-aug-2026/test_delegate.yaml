@@ -1,0 +1,23 @@
+---
+- name: Test delegation
+  hosts: servera.lab.example.com
+  vars:
+    dest_file: /tmp/file1
+  tasks:
+    - name: Perform op on remote machine
+      copy:
+        content: This is the new file
+        dest: "{{ dest_file }}"
+
+    - name: Check if file exists
+      stat:
+        path: "{{ dest_file }}"
+      register: stat_result
+
+    - name: Show result
+      assert:
+        that:
+          - stat_result.stat.exists
+        fail_msg: "{{ dest_file }} is missing"
+        success_msg: "Verified: {{ dest_file }} exists"
+...

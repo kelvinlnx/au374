@@ -1,0 +1,20 @@
+- name: Install software
+  hosts: servera.lab.example.com
+  vars:
+    value1: 123
+  tasks:
+    - name: install softwares
+      debug:
+        msg: "{{ pkg_list }}"
+
+    - name:  display value1
+      debug:
+        var: value1
+
+- name: test servers for functions
+  hosts: ....
+  tasks:
+    - name:
+      debug:
+        msg: your package is {{ pkg_list }} and value1 is {{ value1 }}
+      when: target_server in my_list
