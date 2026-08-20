@@ -1,22 +1,33 @@
 ---
 - name: Testing facts
   hosts: servera.lab.example.com
-  gather_facts: false
+  gather_facts: true
   tasks:
     - name: list facts for servera and serverb
       debug:
         msg:
           - "Value of value1 in: "
-          - "    servera: {{ hostvars['servera.lab.example.com'].value1 | default('Undefined')" 
-          - "    serverb: {{ hostvars['serverb.lab.example.com'].value1 | default('Undefined')" 
+          - "    servera: {{ hostvars['servera.lab.example.com'].value1 | default('Undefined') }}" 
+          - "    serverb: {{ hostvars['serverb.lab.example.com'].value1 | default('Undefined') }}" 
+          - "    if i use value1 directly {{ value1 | default('you did not declare la') }}"
 
     - name: Creating fact
       set_fact:
         value1: 123
+      delegate_to: serverb.lab.example.com
+      delegate_facts: true
+
+    - name: Gather facts
+      setup:
+      delegate_to: serverb.lab.example.com
+      delegate_facts: true
 
     - name: list facts for servera and serverb
       debug:
         msg:
           - "Value of value1 in: "
-          - "    servera: {{ hostvars['servera.lab.example.com'].value1 | default('Undefined')" 
-          - "    serverb: {{ hostvars['serverb.lab.example.com'].value1 | default('Undefined')" 
+          - "    servera: {{ hostvars['servera.lab.example.com'].value1 | default('Undefined') }}" 
+          - "    serverb: {{ hostvars['serverb.lab.example.com'].value1 | default('Undefined') }}" 
+          - "    if i use value1 directly {{ value1 | default('you did not declare la') }}"
+          - "    servera ip is {{ ansible_facts.default_ipv4.address }}"
+          - "    serverb ip is {{ hostvars['serverb.lab.example.com'].ansible_facts.default_ipv4.address }}"

@@ -1,0 +1,7 @@
+---
+- name: testing hostvars magic variable
+  hosts: servera.lab.example.com
+  tasks:
+    - name: display hostvars
+      debug:
+        var: hostvars

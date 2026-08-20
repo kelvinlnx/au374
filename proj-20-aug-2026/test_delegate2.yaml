@@ -1,0 +1,16 @@
+---
+- name: Sample task delegation
+  hosts: servera.lab.example.com
+  tasks:
+    - name: T1
+      debug:
+        msg: This is executed on {{ inventory_hostname }}
+
+    - name: T2
+      debug:
+        msg: issue command to remove {{ ansible_facts.fqdn }} from the cluster
+      delegate_to: serverc.lab.example.com
+
+    - name: T3
+      debug:
+        msg: back in {{ inventory_hostname }}. my ip is {{ ansible_facts.default_ipv4.address }} # {{ ansible_facts['default_ipv4']['address'] }} {{ ansible_facts['default_ipv4'].address }} {{ ansible_default_ipv4.address }}

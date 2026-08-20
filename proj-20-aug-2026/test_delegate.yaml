@@ -8,6 +8,7 @@
       copy:
         content: This is the new file
         dest: "{{ dest_file }}"
+      delegate_to: serverb.lab.example.com
 
     - name: Check if file exists
       stat:
